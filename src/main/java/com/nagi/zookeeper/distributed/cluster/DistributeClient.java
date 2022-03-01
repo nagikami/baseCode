@@ -1,4 +1,4 @@
-package com.nagi.zookeeper.case1;
+package com.nagi.zookeeper.distributed.cluster;
 
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
