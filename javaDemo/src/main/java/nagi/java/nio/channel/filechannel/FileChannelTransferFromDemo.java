@@ -1,8 +1,7 @@
-package nagi.java.nio;
+package nagi.java.nio.channel.filechannel;
 
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
-import java.nio.channels.SocketChannel;
 
 public class FileChannelTransferFromDemo {
     public static void main(String[] args) throws Exception {
