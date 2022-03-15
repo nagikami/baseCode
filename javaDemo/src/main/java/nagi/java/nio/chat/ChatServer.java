@@ -86,9 +86,6 @@ public class ChatServer {
         if (message.length() > 0) {
             broadCast(selector, socketChannel, message);
         }
-
-        //register again
-        socketChannel.register(selector, SelectionKey.OP_READ);
     }
 
     private void broadCast(Selector selector, SocketChannel socketChannel, StringBuilder message) throws IOException {
