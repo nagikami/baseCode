@@ -18,6 +18,7 @@ public class SearchDemo {
         try (DirectoryReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("E:\\testData\\lucene\\indices")))) {
             //create searcher
             IndexSearcher searcher = new IndexSearcher(reader);
+            //create analyzer, must same as analyzer of indexing files
             StandardAnalyzer analyzer = new StandardAnalyzer();
             //create query parser and set default field and analyzer
             QueryParser parser = new QueryParser("content", analyzer);
