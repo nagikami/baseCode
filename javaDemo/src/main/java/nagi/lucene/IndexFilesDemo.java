@@ -1,9 +1,7 @@
 package nagi.lucene;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.TextField;
+import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
@@ -29,8 +27,12 @@ public class IndexFilesDemo {
             }
             //create document
             Document document = new Document();
-            //set filed
-            document.add(new TextField("id", "1", Field.Store.YES));
+            //set filed, analyze n, index y, store y
+            document.add(new StringField("id", "1", Field.Store.YES));
+            //analyze n, index y, store n
+            document.add(new IntPoint("price", 100));
+            //store y
+            document.add(new StoredField("price", 100));
             document.add(new TextField("content", content.toString(), Field.Store.YES));
             //create indices dir
             FSDirectory indicesDir = FSDirectory.open(Paths.get("E:\\testData\\lucene\\indices"));

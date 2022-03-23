@@ -2,17 +2,15 @@ package nagi.lucene;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.*;
 import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
 
-public class SearchDemo {
+public class BooleanQueryDemo {
     public static void main(String[] args) {
         //create indices dir
         try (DirectoryReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("E:\\testData\\lucene\\indices")))) {
@@ -23,7 +21,12 @@ public class SearchDemo {
             //create query parser and set default field and analyzer
             QueryParser parser = new QueryParser("content", analyzer);
             //parse query string
-            Query query = parser.parse("陈");
+            Query query1 = parser.parse("陈 AND 梦");
+            Query query2 = IntPoint.newRangeQuery("price", 1, 101);
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+            builder.add(query1, BooleanClause.Occur.MUST);
+            builder.add(query2, BooleanClause.Occur.MUST);
+            BooleanQuery query = builder.build();
             //search and return top 10
             TopDocs topDocs = searcher.search(query, 10);
             System.out.println(topDocs.totalHits);
@@ -34,7 +37,6 @@ public class SearchDemo {
                 //read doc from fs by doc id
                 Document doc = searcher.doc(docId);
                 System.out.println(doc.getField("id"));
-                System.out.println(doc.getField("price"));
                 System.out.println(doc.getField("content"));
             }
         } catch (Exception e) {
