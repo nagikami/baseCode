@@ -35,7 +35,7 @@ public class VerifyCode {
             return;
         }
         String code = getCode();
-        jedis.set(verifyKey, code);
+        jedis.setex(verifyKey, 2, code);
         jedis.incr(verifyKeyCount);
     }
 
