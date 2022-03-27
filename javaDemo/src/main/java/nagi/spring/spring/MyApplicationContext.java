@@ -13,7 +13,7 @@ public class MyApplicationContext {
     private Class configClass;
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
     //单例池
-    private Map<String, Object> singletonObjectMap = new ConcurrentHashMap<>();
+    private Map<String, Object> singletonObjects = new ConcurrentHashMap<>();
     private ArrayList<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
 
     public MyApplicationContext(Class configClass) {
@@ -93,8 +93,8 @@ public class MyApplicationContext {
             BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
 
             //bean为单例且未通过属性注入调用getBean提前创建，则创建该bean
-            if ("singleton".equals(beanDefinition.getScope()) && !singletonObjectMap.containsKey(beanName)) {
-                singletonObjectMap.put(beanName, createBean(beanName, beanDefinition));
+            if ("singleton".equals(beanDefinition.getScope()) && !singletonObjects.containsKey(beanName)) {
+                singletonObjects.put(beanName, createBean(beanName, beanDefinition));
             }
         }
     }
@@ -157,11 +157,11 @@ public class MyApplicationContext {
             String scope = beanDefinition.getScope();
             //获取单例bean，没有则创建
             if ("singleton".equals(scope)) {
-                Object bean = singletonObjectMap.get(beanName);
+                Object bean = singletonObjects.get(beanName);
                 //依赖bean不存在时创建依赖的bean
                 if (bean == null) {
                     Object o = createBean(beanName, beanDefinition);
-                    singletonObjectMap.put(beanName, o);
+                    singletonObjects.put(beanName, o);
                     bean = o;
                 }
                 return bean;

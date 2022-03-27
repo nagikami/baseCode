@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 
+//基于静态代理，jvm通过反射等机制生成包含被代理对象的Proxy子类
 public class JDKProxy {
     public static void main(String[] args) {
         UserDaoImpl userDao = new UserDaoImpl();

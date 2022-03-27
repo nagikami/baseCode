@@ -7,6 +7,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     public int multiply(int a, int b) {
+        System.out.println("b invoke");
+        add(a, b);
+        System.out.println("a invoke");
         return a * b;
     }
 }
