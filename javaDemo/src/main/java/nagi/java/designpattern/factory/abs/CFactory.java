@@ -1,5 +1,6 @@
 package nagi.java.designpattern.factory.abs;
 
+//实现抽象工厂接口
 public class CFactory implements AbsFactory {
     @Override
     public void createPizza(String type) {
