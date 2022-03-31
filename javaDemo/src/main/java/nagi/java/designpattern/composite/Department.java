@@ -1,0 +1,31 @@
+package nagi.java.designpattern.composite;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Department extends OrgComponent {
+    //聚合的组件（Unit节点）
+    List<OrgComponent> orgComponents = new ArrayList<>();
+
+    public Department(String name, String des) {
+        super(name, des);
+    }
+
+    @Override
+    protected void add(OrgComponent orgComponent) {
+        orgComponents.add(orgComponent);
+    }
+
+    @Override
+    protected void remove(OrgComponent orgComponent) {
+        orgComponent.remove(orgComponent);
+    }
+
+    @Override
+    protected void print() {
+        System.out.println("------------" + getName() + "---------------");
+        for (OrgComponent orgComponent : orgComponents) {
+            orgComponent.print();
+        }
+    }
+}
