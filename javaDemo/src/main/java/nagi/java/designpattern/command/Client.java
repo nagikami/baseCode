@@ -7,7 +7,7 @@ package nagi.java.designpattern.command;
  * Command 命令角色 封装需要执行的命令 接口或抽象类
  * Receiver 接收者角色 执行具体的操作
  * ConcreteCommand 绑定一个接受者和一个动作（Command），调用接受者操作实现execute
- * Spring的JdbcTemplate使用命令模式
+ * Spring的JdbcTemplate的query使用命令模式
  */
 public class Client {
     public static void main(String[] args) {
