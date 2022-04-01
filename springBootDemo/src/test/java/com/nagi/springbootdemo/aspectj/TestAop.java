@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 @SpringBootTest
 public class TestAop implements ApplicationContextAware {
@@ -28,5 +30,12 @@ public class TestAop implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         user = applicationContext.getBean("user", User.class);
+    }
+
+    @Test
+    public void testSpel() {
+        SpelExpressionParser spelExpressionParser = new SpelExpressionParser();
+        Expression expression = spelExpressionParser.parseExpression("10 * ( 2 - 1)");
+        System.out.println(expression.getValue());
     }
 }
