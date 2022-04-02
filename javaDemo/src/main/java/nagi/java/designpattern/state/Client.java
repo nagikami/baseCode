@@ -11,5 +11,7 @@ public class Client {
     public static void main(String[] args) {
         Activity activity = new Activity();
         activity.getState().operation1();
+        activity.getState().operation1();
+        activity.getState().operation2();
     }
 }
