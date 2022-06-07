@@ -1,4 +1,3 @@
-import nagi.java.designpattern.flyweight.User;
 import nagi.mybatis.dao.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +23,5 @@ public class MybatisTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
