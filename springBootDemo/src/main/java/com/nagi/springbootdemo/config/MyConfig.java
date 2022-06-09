@@ -1,6 +1,7 @@
 package com.nagi.springbootdemo.config;
 
 
+import com.nagi.springbootdemo.controller.HelloController;
 import com.nagi.springbootdemo.entity.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,5 +22,11 @@ public class MyConfig {
     public User user01() {
         User user = new User(null, "nagi", 1000d, "test", 18, 1);
         return user;
+    }
+
+    // 使用BeanNameUrlHandlerMapping
+    @Bean("/hello")
+    public HelloController hello() {
+        return new HelloController();
     }
 }

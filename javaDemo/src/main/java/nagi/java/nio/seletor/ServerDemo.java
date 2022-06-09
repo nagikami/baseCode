@@ -29,7 +29,6 @@ public class ServerDemo {
 
                 if (selectionKey.isAcceptable()) {
                     ServerSocketChannel severSocketChannel = (ServerSocketChannel) selectionKey.channel();
-                    //SocketChannel socketChannel = serverSocketChannel.accept();
                     SocketChannel socketChannel = severSocketChannel.accept();
                     socketChannel.configureBlocking(false);
                     socketChannel.write(ByteBuffer.wrap("hello".getBytes()));
