@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /**
-     * 取数据实际(这里我们可以读取客户端发送的消息)
+     * 读取数据(这里可以读取客户端发送的消息)
      * @param ctx 上下文对象,含有管道pipeline,通道channel,地址
      * @param msg 就是客户端发送的数据 默认Object
      * @throws Exception
