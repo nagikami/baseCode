@@ -1,13 +1,11 @@
-package nagi.netty.simple;
+package nagi.netty.codec;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
 
 public class NettyServer {
     public static void main(String[] args) throws Exception {
@@ -30,11 +28,10 @@ public class NettyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // 创建一个通道初始化对象(匿名对象)
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            // 可以使用一个集合管理 SocketChannel
-                            // 在推送消息时，可以将业务加入到各个channel对应的NIOEventLoop的taskQueue或者scheduleTaskQueue
-                            System.out.println("socket channel hashcode: " + socketChannel.hashCode());
-                            // 给pipeline设置处理器
-                            socketChannel.pipeline().addLast(new NettyServerHandler());
+                            ChannelPipeline pipeline = socketChannel.pipeline();
+                            // 在pipeline加入ProtoBufDecoder,指定对哪种对象进行解码
+                            pipeline.addLast("decoder", new ProtobufDecoder(StudentPOJO.Student.getDefaultInstance()));
+                            pipeline.addLast(new NettyServerHandler());
                         }
                     }); // 给workerGroup的EventLoop对应的管道设置处理器
 
