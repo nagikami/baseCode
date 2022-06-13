@@ -1,4 +1,4 @@
-package nagi.netty.inboundAndoutBound;
+package nagi.netty.inboundandoutbound;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

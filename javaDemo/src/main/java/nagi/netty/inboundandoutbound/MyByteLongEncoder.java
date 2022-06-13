@@ -1,4 +1,4 @@
-package nagi.netty.inboundAndoutBound;
+package nagi.netty.inboundandoutbound;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

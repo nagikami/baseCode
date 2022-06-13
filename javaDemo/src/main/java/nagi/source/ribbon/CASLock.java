@@ -1,4 +1,4 @@
-package nagi.srccode.ribbon;
+package nagi.source.ribbon;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
