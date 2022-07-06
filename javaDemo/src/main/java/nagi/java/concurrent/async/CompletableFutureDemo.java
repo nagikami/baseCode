@@ -18,10 +18,11 @@ public class CompletableFutureDemo {
             return 1000;
         });
 
-        //获取返回值， r执行结果 e 异常
+        //注册执行完成的回调函数，处理返回值， r执行结果 e 异常
         integerCompletableFuture.whenComplete((r, e) -> {
             System.out.println("r " + r);
             System.out.println("e " + e);
         });
+        System.out.println(integerCompletableFuture.get());
     }
 }

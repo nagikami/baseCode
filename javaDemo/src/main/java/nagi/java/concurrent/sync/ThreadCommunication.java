@@ -6,7 +6,7 @@ class Share {
 
     public synchronized void incr() throws InterruptedException {
         //第二步 判断 工作 通知
-        //if判断，两个以上线程存在虚假唤醒问题，应使用while
+        //if判断，两个以上线程存在虚假唤醒（可能连续两次都是相同操作的线程获得锁）问题，应使用while
         if (number != 0) {
             this.wait();
         }

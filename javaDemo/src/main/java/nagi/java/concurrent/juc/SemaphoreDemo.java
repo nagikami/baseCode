@@ -4,6 +4,9 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 使用share mode，详见AbstractQueuedSynchronizer
+ */
 public class SemaphoreDemo {
     public static void main(String[] args) {
         //创建semaphore对象，设置许可数
