@@ -29,6 +29,7 @@
         <netty.version>4.1.77.Final</netty.version>
         <protobuf.version>3.6.1</protobuf.version>
         <spark.version>3.1.2</spark.version>
+        <jol.version>0.16</jol.version>
     </properties>
 
     <dependencyManagement>
@@ -117,6 +118,11 @@
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_2.12</artifactId>
                 <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjdk.jol</groupId>
+                <artifactId>jol-core</artifactId>
+                <version>${jol.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
