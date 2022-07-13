@@ -19,7 +19,7 @@ public class CompletableFutureDemo {
         });
 
         Thread.sleep(1000);
-        //注册执行完成的回调函数，处理返回值， r执行结果 e 异常
+        //注册执行完成的回调函数（添加子任务到任务栈），处理返回值， r执行结果 e 异常
         integerCompletableFuture.whenComplete((r, e) -> {
             System.out.println("r " + r);
             System.out.println("e " + e);
