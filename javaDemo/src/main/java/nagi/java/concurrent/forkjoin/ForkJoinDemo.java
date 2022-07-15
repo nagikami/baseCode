@@ -31,8 +31,8 @@ class MyTask extends RecursiveTask<Integer> {
             myTask1.fork();
             myTask2.fork();
 
-            //合并分支
-            result = myTask1.join() + myTask2.join();
+            //合并分支，最好和fork顺序对称，join时会先尝试获取任务队列top的任务，对称可提高效率
+            result = myTask2.join() + myTask1.join();
         }
         return result;
     }
