@@ -30,6 +30,7 @@
         <protobuf.version>3.6.1</protobuf.version>
         <spark.version>3.1.2</spark.version>
         <jol.version>0.16</jol.version>
+        <caffeine.version>3.0.5</caffeine.version>
     </properties>
 
     <dependencyManagement>
@@ -123,6 +124,11 @@
                 <groupId>org.openjdk.jol</groupId>
                 <artifactId>jol-core</artifactId>
                 <version>${jol.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
