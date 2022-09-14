@@ -11,13 +11,20 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
 
     private List<RunnableFuture<?>> futures = new ArrayList<>();
 
+    // 绑定关联并发任务
     @Override
     public void attach(List<StructuredRunnableFuture<?>> futures) {
         this.futures.addAll(futures);
     }
+    // 取消任务边
+    @Override
+    public void removeEdge(StructuredRunnableFuture<?> future) {
+        futures.remove(future);
+    }
 
+    // 取消所有关联的并发任务
     public void cancelFutures() {
-        futures.stream().filter((future) -> future != this).forEach((future) -> future.cancel(true));
+        futures.forEach((future) -> future.cancel(true));
     }
 
     private volatile int state;
@@ -198,6 +205,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
                     result = null;
                     ran = false;
                     setException(ex);
+                    // 取消关联并发任务
                     cancelFutures();
                 }
                 if (ran)
