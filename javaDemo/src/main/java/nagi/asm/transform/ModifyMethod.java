@@ -13,6 +13,14 @@ import java.io.PrintWriter;
 
 import static org.objectweb.asm.Opcodes.*;
 
+/**
+ * 可以使用AnalyzerAdapter为方法添加新指令，它会自动计算栈映射帧，并且提供包含操作数栈大小在内的栈信息，
+ * 但是效率通常没有COMPUTE_MAXS高
+ * 可以使用LocalVariablesSorter为方法添加新的局部变量，通过newLocal创建局部变量，
+ * 将局部变量有序添加到局部变量表
+ * 可以使用AdviceAdapter为方法添加新指令，它对构造器生效，且继承自LocalVariablesSorter，可以创建局部变量
+ * 需要使用链将这些适配器连接起来
+ */
 public class ModifyMethod {
     public static void main(String[] args) throws IOException {
 

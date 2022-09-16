@@ -54,6 +54,10 @@ class RemoveOpcodesClassVisitor extends ClassVisitor {
     }
 }
 
+/**
+ * 模板类
+ * 在所有的指令执行方法前添加visitOpcodes调用，保证在不是ICONST_0->IADD序列时可以执行ICONST_0指令
+ */
 abstract class PatternMethodVisitor extends MethodVisitor {
     protected static final int SEEN_NOTHING = 0;
     protected int state;
@@ -66,7 +70,6 @@ abstract class PatternMethodVisitor extends MethodVisitor {
         super(api, methodVisitor);
     }
 
-    // 在所有的指令执行方法前添加visitOpcodes调用，保证在不是ICONST_0->IADD序列时可以执行ICONST_0指令
     @Override
     public void visitInsn(int opcode) {
         visitOpcodes();
@@ -145,6 +148,21 @@ abstract class PatternMethodVisitor extends MethodVisitor {
         super.visitMultiANewArrayInsn(descriptor, numDimensions);
     }
 
+    // 处理ICONST_0在栈映射帧之前的情况
+    @Override
+    public void visitFrame(int type, int numLocal, Object[] local, int numStack, Object[] stack) {
+        visitOpcodes();
+        super.visitFrame(type, numLocal, local, numStack, stack);
+    }
+
+    // 处理ICONST_0在跳转命令之前的情况
+    @Override
+    public void visitLabel(Label label) {
+        visitOpcodes();
+        super.visitLabel(label);
+    }
+
+    // 处理ICONST_0在方法最后的位置的情况
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
         visitOpcodes();
