@@ -1,4 +1,4 @@
-package nagi.asm;
+package nagi.asm.analysis;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.util.ASMifier;
@@ -10,25 +10,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * print ASM code representation of specify class
+ * 分析类结构
+ * 使用ClassVisitor扫描类结构（分部分读取字节数组），返回分析结果，处理结果（e.g.打印）
+ * 分析类结构并以ASM code或者文本形式输出分析结果
  */
 public class ASMPrint {
     public static void main(String[] args) throws IOException {
         // config
         String className = "nagi.asm.sample.HelloWorld";
+        // 跳过栈映射帧（记录栈帧在执行某条指令前局部变量表和操作数栈中数据的类型，通常在跳转指令(GOTO)前生成）和debug内容的读取
         int paringOptions = ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG;
         boolean asmCode = true;
 
-        // print
-        // specify representation of class file
+        // 指定分析结果输出形式
         Printer printer = asmCode ? new ASMifier() : new Textifier();
-        // get output stream
+        // 获取输出流
         PrintWriter printWriter = new PrintWriter(System.out, true);
-        // traceClassVisitor without wrapping next classVisitor
+        // 创建TraceClassVisitor（打印当前类，追踪类的转换过程）但是不指定内部ClassVisitor，
+        // 表示TraceClassVisitor是最后一个ClassVisitor，相当于生成或转换中的ClassWriter
         TraceClassVisitor traceClassVisitor = new TraceClassVisitor(null, printer, printWriter);
-        // Get input stream and read byte array from input stream with ClassReader.
-        // Construct ClassVisitor(memory structure of class file) with byte array.
-        // Write ClassVisitor to output stream with ClassWriter(specify representation of class file).
+        // ClassReader读取类到字节数组，调用traceClassVisitor分析类结构（按一定顺序调用visit方法），并打印分析结果
         new ClassReader(className).accept(traceClassVisitor, paringOptions);
     }
 }
