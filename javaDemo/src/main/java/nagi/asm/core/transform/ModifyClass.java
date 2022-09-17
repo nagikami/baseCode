@@ -1,4 +1,4 @@
-package nagi.asm.transform;
+package nagi.asm.core.transform;
 
 import org.objectweb.asm.*;
 import org.objectweb.asm.util.ASMifier;
@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import static org.objectweb.asm.Opcodes.*;
 
 /**
+ * 使用core api转换类时需要按照一定的顺序处理元素
  * ClassReader获取输入流并读取类文件到字节数组
  * ClassVisitor从字节数组加载类文件结构描述对象，并对描述对象进行修改
  * ClassWriter将新的描述对象转化为字节数组

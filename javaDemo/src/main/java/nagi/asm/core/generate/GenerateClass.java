@@ -1,4 +1,4 @@
-package nagi.asm.generate;
+package nagi.asm.core.generate;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import static org.objectweb.asm.Opcodes.*;
 
 /**
- * 运行时生成类的字节数组
+ * 使用core api在运行时生成类的字节数组，元素生成需要按照一定的顺序
  * 可以将生成的类（字节数组）存储到硬盘的类文件（.class）中，之后通过类加载器的
  * findClass方法通过类文件加载类（编译器）
  * 也可通过类加载器的defineClass方法加载生成的字节数组直接加载类（动态代理、AOP）
@@ -35,7 +35,7 @@ public class GenerateClass {
         ClassWriter classWriter = new ClassWriter(0);
         FieldVisitor fieldVisitor;
         MethodVisitor methodVisitor;
-        classWriter.visit(V11, ACC_PUBLIC | ACC_SUPER, "nagi/asm/generate/Generate_stub", null, "java/lang/Object", null);
+        classWriter.visit(V11, ACC_PUBLIC | ACC_SUPER, "nagi/asm/core/generate/Generate_stub", null, "java/lang/Object", null);
         {
             // 这里需要添加static修饰符，否则通过反射无法获取到此时设置的默认值
             // （推测通过反射对生成类实例化时只进行了类变量初始化，没有进行成员变量初始化）

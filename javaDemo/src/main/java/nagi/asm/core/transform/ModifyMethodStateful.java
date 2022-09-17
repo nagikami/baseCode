@@ -1,4 +1,4 @@
-package nagi.asm.transform;
+package nagi.asm.core.transform;
 
 import org.objectweb.asm.*;
 import org.objectweb.asm.util.ASMifier;

@@ -1,4 +1,4 @@
-package nagi.asm.transform;
+package nagi.asm.core.transform;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
