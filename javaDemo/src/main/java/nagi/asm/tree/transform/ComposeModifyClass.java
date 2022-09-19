@@ -73,7 +73,7 @@ class TreeClassVisitorCompose extends ClassVisitor {
     // 这里每一段都是对事件的全量处理，而不是一个事件处理的三个阶段
     @Override
     public void visitEnd() {
-        // 在完成TreeClassVisitor之前的core api的处理后进行tree api的处理
+        // 在完成TreeClassVisitor之前的core api的处理（此时类已经由上游core api链处理后全部加载到ClassNode）后进行tree api的处理
         RemoveMethodTransformer removeMethodTransformer = new RemoveMethodTransformer(null, "test", "()V");
         removeMethodTransformer.transform((ClassNode)this.cv);
         // 将visitEed替换成tree api的accept方法，继续执行后续的core api处理

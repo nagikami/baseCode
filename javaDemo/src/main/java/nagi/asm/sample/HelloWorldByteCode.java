@@ -10,8 +10,8 @@ public class HelloWorldByteCode<T> {
 
     // 注解Test的类型描述符保存在方法的RuntimeVisibleAnnotations属性的annotation属性里
     @Test
-    // 泛型T的类型描述符保存在方法的signature属性里
-    public <T> void test(T a) {
+    // 泛型T的类型描述符保存在方法的signature属性里，异常保存在Exceptions属性里
+    public <T> void test(T a) throws RuntimeException {
         // 使用new新建实例时，需要dup，因为调用<init>需要弹出一个对象引用，
         // 保存到局部变量表也要弹出一个对象引用
         HelloWorldByteCode helloWorld = new HelloWorldByteCode();

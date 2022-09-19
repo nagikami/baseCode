@@ -21,7 +21,7 @@ public class ASMPrint {
     public static void main(String[] args) throws IOException {
         // config
         String className = "nagi.asm.sample.HelloWorld";
-        // 跳过栈映射帧（记录栈帧在执行某条指令前局部变量表和操作数栈中数据的类型，通常在跳转指令(GOTO)前生成）和
+        // 跳过栈映射帧（记录栈帧在执行某条指令前局部变量表和操作数栈中数据的类型，通常在跳转指令(GOTO、ATHROW)后生成，可以用于数据流分析）和
         // debug内容（字节码指令偏移量和源码行号的映射，局部变量表序号和源码变量名的映射）的读取
         int paringOptions = ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG;
         boolean asmCode = true;
