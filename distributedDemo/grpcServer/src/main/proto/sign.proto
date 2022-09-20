@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.nagi";
+option java_outer_classname = "SignProto";
+option objc_class_prefix = "SIGN";
+
+package sign;
+
+service Sign {
+  rpc SignUser (SignRequest) returns (SignReply) {}
+}
+
+message SignRequest {
+  string accessKey = 1;
+  string secretKey = 2;
+}
+
+message SignReply {
+  bool isOk = 1;
+  string message = 2;
+}
