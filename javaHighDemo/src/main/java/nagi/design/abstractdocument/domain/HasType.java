@@ -1,7 +1,7 @@
-package nagi.lucene.design.abstractdocument.domain;
+package nagi.design.abstractdocument.domain;
 
-import nagi.lucene.design.abstractdocument.Document;
-import nagi.lucene.design.abstractdocument.domain.enums.Property;
+import nagi.design.abstractdocument.Document;
+import nagi.design.abstractdocument.domain.enums.Property;
 
 import java.util.Optional;
 

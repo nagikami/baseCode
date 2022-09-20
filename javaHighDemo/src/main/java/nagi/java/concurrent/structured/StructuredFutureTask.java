@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.LockSupport;
 
-public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
+public class StructuredFutureTask<V> implements StructuredRunnableFuture<V> {
 
     private List<RunnableFuture<?>> futures = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
     /** The thread running the callable; CASed during run() */
     private volatile Thread runner;
     /** Treiber stack of waiting threads */
-    private volatile StructuredFutureTask.WaitNode waiters;
+    private volatile WaitNode waiters;
 
     /**
      * Returns result or throws exception for completed task.
@@ -290,7 +290,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
      */
     static final class WaitNode {
         volatile Thread thread;
-        volatile StructuredFutureTask.WaitNode next;
+        volatile WaitNode next;
         WaitNode() { thread = Thread.currentThread(); }
     }
 
@@ -300,7 +300,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
      */
     private void finishCompletion() {
         // assert state > COMPLETING;
-        for (StructuredFutureTask.WaitNode q; (q = waiters) != null;) {
+        for (WaitNode q; (q = waiters) != null;) {
             if (WAITERS.weakCompareAndSet(this, q, null)) {
                 for (;;) {
                     Thread t = q.thread;
@@ -308,7 +308,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
                         q.thread = null;
                         LockSupport.unpark(t);
                     }
-                    StructuredFutureTask.WaitNode next = q.next;
+                    WaitNode next = q.next;
                     if (next == null)
                         break;
                     q.next = null; // unlink to help gc
@@ -340,7 +340,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
         //   and we suffer a spurious wakeup, we will do no worse than
         //   to park-spin for a while
         long startTime = 0L;    // Special value 0L means not yet parked
-        StructuredFutureTask.WaitNode q = null;
+        WaitNode q = null;
         boolean queued = false;
         for (;;) {
             int s = state;
@@ -360,7 +360,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
             else if (q == null) {
                 if (timed && nanos <= 0L)
                     return s;
-                q = new StructuredFutureTask.WaitNode();
+                q = new WaitNode();
             }
             else if (!queued)
                 queued = WAITERS.weakCompareAndSet(this, q.next = waiters, q);
@@ -398,12 +398,12 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
      * expect lists to be long enough to outweigh higher-overhead
      * schemes.
      */
-    private void removeWaiter(StructuredFutureTask.WaitNode node) {
+    private void removeWaiter(WaitNode node) {
         if (node != null) {
             node.thread = null;
             retry:
             for (;;) {          // restart on removeWaiter race
-                for (StructuredFutureTask.WaitNode pred = null, q = waiters, s; q != null; q = s) {
+                for (WaitNode pred = null, q = waiters, s; q != null; q = s) {
                     s = q.next;
                     if (q.thread != null)
                         pred = q;
@@ -464,7 +464,7 @@ public class StructuredFutureTask<V> implements StructuredRunnableFuture<V>{
             MethodHandles.Lookup l = MethodHandles.lookup();
             STATE = l.findVarHandle(StructuredFutureTask.class, "state", int.class);
             RUNNER = l.findVarHandle(StructuredFutureTask.class, "runner", Thread.class);
-            WAITERS = l.findVarHandle(StructuredFutureTask.class, "waiters", StructuredFutureTask.WaitNode.class);
+            WAITERS = l.findVarHandle(StructuredFutureTask.class, "waiters", WaitNode.class);
         } catch (ReflectiveOperationException e) {
             throw new ExceptionInInitializerError(e);
         }

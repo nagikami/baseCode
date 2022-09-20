@@ -1,4 +1,4 @@
-package nagi.lucene.design.abstractdocument;
+package nagi.design.abstractdocument;
 
 import java.util.*;
 import java.util.function.Function;

@@ -1,6 +1,9 @@
 package nagi.java.concurrent.structured;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 管理并发子任务之间的关系，当子任务抛出异常时，应该取消所有关联的子任务，避免线程泄露
