@@ -1,6 +1,6 @@
 package nagi.java.designpattern.state;
 
-public class State1 extends State{
+public class  State1 extends State{
 
     private Activity activity;
 
