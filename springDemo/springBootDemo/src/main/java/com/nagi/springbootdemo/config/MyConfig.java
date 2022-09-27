@@ -1,6 +1,5 @@
 package com.nagi.springbootdemo.config;
 
-
 import com.nagi.springbootdemo.controller.HelloController;
 import com.nagi.springbootdemo.entity.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -8,9 +7,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration(proxyBeanMethods = false) // false： Lite模式，多例；true：Full模式，单例
+@Configuration(proxyBeanMethods = false) // false: Lite模式，多例；true: Full模式，单例
 @ConditionalOnBean(name = "user")
-@EnableConfigurationProperties // 开启属性配置
+@EnableConfigurationProperties // 注册通过@ConfigurationProperties绑定了配置的组件到容器
 public class MyConfig {
     @Bean // 给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实例
     public User myUser() {

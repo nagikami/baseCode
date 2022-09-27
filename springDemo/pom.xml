@@ -9,17 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>distributedDemo</artifactId>
+    <artifactId>springDemo</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>grpcServer</module>
-        <module>grpcClient</module>
+        <module>springBootDemo</module>
+        <module>springMVCDemo</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 </project>

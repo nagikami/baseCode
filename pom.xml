@@ -13,7 +13,7 @@
         <module>javaHighDemo</module>
         <module>scalaDemo</module>
         <module>distributedDemo</module>
-        <module>springBootDemo</module>
+        <module>springDemo</module>
     </modules>
 
     <properties>
