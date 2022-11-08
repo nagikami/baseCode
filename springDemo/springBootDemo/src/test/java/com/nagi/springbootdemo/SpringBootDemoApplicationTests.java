@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.nagi.springbootdemo.entity.User;
+import com.nagi.springbootdemo.model.User;
 import com.nagi.springbootdemo.mapper.UserMapper;
 import com.nagi.springbootdemo.service.UserService;
 import org.junit.jupiter.api.Test;

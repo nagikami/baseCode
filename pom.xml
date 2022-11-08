@@ -43,6 +43,8 @@
         <springboot.version>2.6.4</springboot.version>
         <aspectjweaver.version>1.9.8</aspectjweaver.version>
         <mybatisplus.version>3.5.1</mybatisplus.version>
+        <java.validation.version>2.0.1.Final</java.validation.version>
+        <validator.version>6.0.13.Final</validator.version>
     </properties>
 
     <dependencyManagement>
@@ -220,6 +222,18 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
+            </dependency>
+            <!-- JSR 380 validation-api -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${java.validation.version}</version>
+            </dependency>
+            <!--  implementation of the validation API -->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

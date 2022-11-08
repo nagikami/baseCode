@@ -1,7 +1,7 @@
 package com.nagi.springbootdemo;
 
-import com.nagi.springbootdemo.entity.Car;
-import com.nagi.springbootdemo.entity.User;
+import com.nagi.springbootdemo.model.Car;
+import com.nagi.springbootdemo.model.User;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

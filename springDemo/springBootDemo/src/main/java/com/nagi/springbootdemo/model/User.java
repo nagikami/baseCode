@@ -1,4 +1,4 @@
-package com.nagi.springbootdemo.entity;
+package com.nagi.springbootdemo.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

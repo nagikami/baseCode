@@ -1,7 +1,7 @@
 package com.nagi.springbootdemo.config;
 
 import com.nagi.springbootdemo.controller.HelloController;
-import com.nagi.springbootdemo.entity.User;
+import com.nagi.springbootdemo.model.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
