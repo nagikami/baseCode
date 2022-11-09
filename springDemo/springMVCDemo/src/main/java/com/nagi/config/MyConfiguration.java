@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
 /**
+ * 管理DispatcherServlet引用的WebApplicationContext（包含HandlerMapping、HandlerAdapter等指定类型的bean）代理
  * 使用@EnableWebMvc（导入DelegatingWebMvcConfiguration组件，Spring Boot在引入Starter时可自动装配，
  * 可以省略此注解）开启对Spring MVC的支持
  * 实现WebMvcConfigurer接口对导入的MVC容器进行管理，可以添加自定义规则（增删组件、修改处理逻辑等）

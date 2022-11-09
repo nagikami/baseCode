@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfigu
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 /**
- * 继承DelegatingWebMvcConfiguration，实现对MVC容器的完全控制
+ * 继承DelegatingWebMvcConfiguration，实现对MVC容器（WebApplicationContext）的完全控制
  */
 //@Configuration // 已使用@EnableWebMvc注册MVC容器，避免重复注册启动失败，故注释
 public class MyConfigurationWithCompleteControl extends DelegatingWebMvcConfiguration {
