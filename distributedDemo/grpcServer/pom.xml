@@ -46,11 +46,13 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-core</artifactId>
         </dependency>
-        <dependency> <!-- necessary for Java 9+ -->
+        <!-- necessary for Java 9+,conflict with org.apache.tomcat.embed of mvc -->
+        <!--
+        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>annotations-api</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>

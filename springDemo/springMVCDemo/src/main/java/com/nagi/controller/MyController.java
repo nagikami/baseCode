@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -23,7 +24,11 @@ import java.util.Locale;
  * 导致session创建失败，需要返回View name将response交由spring管理
  */
 //@SessionAttributes("string")
-@RestController
+/**
+ * @RestController 是@Controller和@ResponseBody的复合注解，会直接将返回值写入到response body导致无法返回View
+ */
+//@RestController
+@Controller
 public class MyController {
     /**
      * 可通过handler method的特定参数类型声明HandlerAdapter回调handler method时传入的参数
@@ -92,5 +97,15 @@ public class MyController {
             return "data bind error";
         }
         return "OK, type: " + car.getType() + " color: " + car.getColor();
+    }
+
+    @RequestMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index() {
+        return "index";
     }
 }
