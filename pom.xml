@@ -45,6 +45,7 @@
         <mybatisplus.version>3.5.1</mybatisplus.version>
         <java.validation.version>2.0.1.Final</java.validation.version>
         <validator.version>6.0.13.Final</validator.version>
+        <commons-fileupload>1.4</commons-fileupload>
     </properties>
 
     <dependencyManagement>
@@ -234,6 +235,11 @@
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

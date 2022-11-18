@@ -61,6 +61,10 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <!-- 取消依赖传递，为true时子module不会继承此依赖 -->
@@ -69,6 +73,23 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!-- 打包web资源，targetPath必须在META-INF/resources下 -->
+            <resource>
+                <directory>src/main/resources/WEB-INF</directory>
+                <targetPath>META-INF/resources/WEB-INF</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <!-- 打包resources到classpath，缺少则application.yml不生效 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>WEB-INF/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

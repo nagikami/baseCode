@@ -108,4 +108,22 @@ public class MyController {
     public String index() {
         return "index";
     }
+
+    /**
+     * redirect：向浏览器返回一个response status让它去访问重定向的地址，属于客户端行为
+     * spring mvc通过RedirectView直接返回重定向的地址和对应的response status
+     * 若通过@ResponseStatus注解设置response status，则返回设置的response status而不是redirect的
+     */
+    @RequestMapping("redirect")
+    public String redirect() {
+        return "redirect:/index";
+    }
+
+    /**
+     * 服务端请求转发的地址，将response返回给客户端，属于服务端行为
+     */
+    @RequestMapping("forward")
+    public String forward() {
+        return "forward:/index";
+    }
 }

@@ -1,2 +1,11 @@
 server:
-  port: 9999
+  port: 8888
+#view resolver配置
+#spring:
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/static
+#      sufix: .jsp
+logging:
+  level:
+    root: INFO

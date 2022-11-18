@@ -1,6 +1,9 @@
 package com.nagi.config;
 
+import org.springframework.web.filter.FormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.*;
 
 /**
  * 继承AbstractAnnotationConfigDispatcherServletInitializer通过spring配置注册DispatcherServlet到servlet容器（ServletContext）
@@ -38,5 +41,22 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/app1" };
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        /**
+         * 设置servlet multipart配置，再用multipartResolver名称注册StandardServletMultipartResolver类型bean，
+         * 即可使用servlet的MultipartResolver
+         */
+        //registration.setMultipartConfig(new MultipartConfigElement("/tmp"));
+        // 开启日志中请求参数和请求头等敏感数据的显示（默认masked）
+        registration.setInitParameter("enableLoggingRequestDetails", "true");
+    }
+
+    // 注册filter
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] {new FormContentFilter()};
     }
 }
