@@ -1,5 +1,6 @@
 package com.nagi.controller;
 
+import com.nagi.annotation.MyRequestMapping;
 import com.nagi.model.Car;
 import com.nagi.validator.MyConstraintValidator;
 import org.springframework.http.HttpEntity;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
@@ -28,6 +31,10 @@ import java.util.Locale;
  * @RestController 是@Controller和@ResponseBody的复合注解，会直接将返回值写入到response body导致无法返回View
  */
 //@RestController
+/**
+ * 如需代理controller注解的类，需要使用类级别代理，例如@EnableTransactionManagement(proxyTargetClass = true)
+ * 如果通过实现接口的方式实现代理，在不启用类级别代理的情况下，需要在接口添加controller注解
+ */
 @Controller
 public class MyController {
     /**
@@ -114,7 +121,7 @@ public class MyController {
      * spring mvc通过RedirectView直接返回重定向的地址和对应的response status
      * 若通过@ResponseStatus注解设置response status，则返回设置的response status而不是redirect的
      */
-    @RequestMapping("redirect")
+    @RequestMapping("/redirect")
     public String redirect() {
         return "redirect:/index";
     }
@@ -122,8 +129,13 @@ public class MyController {
     /**
      * 服务端请求转发的地址，将response返回给客户端，属于服务端行为
      */
-    @RequestMapping("forward")
+    @RequestMapping("/forward")
     public String forward() {
         return "forward:/index";
+    }
+
+    @MyRequestMapping(value = "/fake", fake = "POST")
+    public String fake() {
+        return "index";
     }
 }

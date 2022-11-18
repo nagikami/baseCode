@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class SpringMVCDemoApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(SpringMVCDemoApplication.class, args);
-        String[] beanDefinitionNames = run.getBeanDefinitionNames();
-        Arrays.asList(beanDefinitionNames).forEach(System.out::println);
+//        String[] beanDefinitionNames = run.getBeanDefinitionNames();
+//        Arrays.asList(beanDefinitionNames).forEach(System.out::println);
     }
 }

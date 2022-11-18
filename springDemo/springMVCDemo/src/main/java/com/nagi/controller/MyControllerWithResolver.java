@@ -13,7 +13,7 @@ import java.util.TimeZone;
 @Controller
 public class MyControllerWithResolver {
     // handlerAdapter传入timezone
-    @RequestMapping("zone")
+    @RequestMapping("/zone")
     public String  zone(TimeZone timeZone) {
         return timeZone.toString();
     }
@@ -23,14 +23,14 @@ public class MyControllerWithResolver {
      * 使用LocaleContextResolver或者TimeZoneAwareLocaleContext时不仅可以获得locale
      * 还可以通过可能包含timezone信息的LocaleContext获取timezone，未匹配到timezone则返回null
      */
-    @RequestMapping("myZone")
+    @RequestMapping("/myZone")
     public String myZone(HttpServletRequest request) {
         Locale locale = RequestContextUtils.getLocale(request);
         TimeZone timeZone = RequestContextUtils.getTimeZone(request);
         return "locale: " + locale + (timeZone == null ? "unknown" : timeZone.toString());
     }
 
-    @RequestMapping(value = "upload", method = RequestMethod.GET)
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String upload() {
         return "upload";
     }
@@ -38,7 +38,7 @@ public class MyControllerWithResolver {
     /**
      * 上传的文件会保存在请求参数里，参数名对应表单的INPUT的name属性
      */
-    @RequestMapping(value = "upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile multipartFile) {
         // 获取上传文件的名称
