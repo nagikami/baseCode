@@ -1,22 +1,25 @@
 package com.nagi.config;
 
 import com.nagi.interceptor.MyInterceptor;
-import com.nagi.mapping.MyHandlerMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.springframework.web.util.UrlPathHelper;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 /**
  * 管理DispatcherServlet引用的WebApplicationContext（包含HandlerMapping、HandlerAdapter等指定类型的bean）代理
@@ -31,6 +34,9 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 @ComponentScan(basePackageClasses = MyConfiguration.class) // 指定配置类扫描的组件范围
 public class MyConfiguration implements WebMvcConfigurer {
+
+    private Logger logger = Logger.getLogger("myConfiguration");
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -115,5 +121,26 @@ public class MyConfiguration implements WebMvcConfigurer {
          */
         commonsMultipartResolver.setResolveLazily(false);
         return commonsMultipartResolver;
+    }
+
+
+    // 开启支持异步请求后，在此回调函数进行配置，spring装填的dispatcherServlet默认支持异步请求
+    @Override
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+        // 用于执行handler返回的callable实例
+        configurer.setTaskExecutor(new ConcurrentTaskExecutor(Executors.newCachedThreadPool()));
+    }
+
+    // 配置全局CORS策略
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/app1/**")
+                .allowedOrigins("http://127.0.0.1:8888")
+                .allowedMethods("PUT","GET");
+    }
+
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+        resolvers.forEach(resolver -> logger.info("default exception resolver: " + resolver.getClass().getSimpleName()));
     }
 }

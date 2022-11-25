@@ -13,13 +13,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.zalando.problem.DefaultProblem;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * spring参数处理包括在请求数据与handler参数和Model之间的Validation, Data Binding, and Type Conversion
@@ -37,6 +41,9 @@ import java.util.Locale;
  */
 @Controller
 public class MyController {
+
+    private Logger logger = Logger.getLogger("myController");
+
     /**
      * 可通过handler method的特定参数类型声明HandlerAdapter回调handler method时传入的参数
      */
@@ -137,5 +144,20 @@ public class MyController {
     @MyRequestMapping(value = "/fake", fake = "POST")
     public String fake() {
         return "index";
+    }
+
+    @GetMapping("/exception")
+    public String exception() {
+        throw new RuntimeException("just test");
+    }
+
+    /**
+     * 由ExceptionHandlerExceptionResolver保存并调用，若controller内的@ExceptionHandler未匹配异常类型，
+     * 则由@ControllerAdvice注解的类下的@ExceptionHandler方法处理
+     * spring 6.0引入ProblemDetail来处理Error Responses
+     */
+    @ExceptionHandler
+    public void handle(IOException e) {
+        logger.info("local exception handler");
     }
 }

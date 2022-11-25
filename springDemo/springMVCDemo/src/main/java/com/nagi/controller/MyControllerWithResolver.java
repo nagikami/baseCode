@@ -3,10 +3,12 @@ package com.nagi.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -51,5 +53,19 @@ public class MyControllerWithResolver {
             return "upload failed!";
         }
         return "upload successfully!";
+    }
+
+    /**
+     * 直接向response的OutputStream写入数据，也可以使用ResponseEntity将StreamingResponseBody作为body，
+     * 实现自定义status和headers
+     */
+    @GetMapping("/download")
+    public StreamingResponseBody download() {
+        return new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                outputStream.write("hello world".getBytes(StandardCharsets.UTF_8));
+            }
+        };
     }
 }

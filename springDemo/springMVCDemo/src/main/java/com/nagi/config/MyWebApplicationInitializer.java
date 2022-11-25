@@ -18,7 +18,11 @@ public class MyWebApplicationInitializer implements ServletContextInitializer {
         ServletRegistration.Dynamic myServlet = servletContext.addServlet("myServlet", new DispatcherServlet(annotationConfigWebApplicationContext));
         myServlet.setLoadOnStartup(1);
         myServlet.addMapping("/app1");
+        // servlet设置支持异步请求，自定义dispatcherServlet默认为false
+        myServlet.setAsyncSupported(true);
         FilterRegistration.Dynamic myFilter = servletContext.addFilter("myFilter", new MyFilter());
         myFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/*");
+        // filter设置支持异步请求
+        myFilter.setAsyncSupported(true);
     }
 }
