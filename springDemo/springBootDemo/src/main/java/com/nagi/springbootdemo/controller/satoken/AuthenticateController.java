@@ -1,5 +1,7 @@
 package com.nagi.springbootdemo.controller.satoken;
 
+import cn.dev33.satoken.basic.SaBasicUtil;
+import cn.dev33.satoken.secure.SaBase64Util;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
@@ -125,5 +127,19 @@ public class AuthenticateController {
         HashMap<String, String> stringStringHashMap = SaSecureUtil.rsaGenerateKeyPair();
         // 私钥签名
         return "value: " + text + " data encryption: " + SaSecureUtil.rsaEncryptByPrivate(stringStringHashMap.get("private"), text);
+    }
+
+    // Base64编码
+    @RequestMapping("encode")
+    public String encode() {
+        String text = "123456";
+        return "value: " + text + " data encode: " + SaBase64Util.encode(text);
+    }
+
+    // Basic认证401，也可以通过@SaCheckBasic注解实现
+    @RequestMapping("basic")
+    public String basic() {
+        SaBasicUtil.check("nagi:nagi");
+        return "Basic authenticating successfully";
     }
 }
