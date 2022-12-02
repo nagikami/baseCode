@@ -16,11 +16,11 @@ public class SpringBootDemoApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(SpringBootDemoApplication.class, args);
         String[] beanDefinitionNames = run.getBeanDefinitionNames();
-        Arrays.asList(beanDefinitionNames).forEach(System.out::println);
-        User nagi = run.getBean("nagi", User.class);
-        User tom = run.getBean("myUser", User.class);
-        Car car = run.getBean("car", Car.class);
-        System.out.println(nagi + "\t" + tom + "\t" + car);
+//        Arrays.asList(beanDefinitionNames).forEach(System.out::println);
+//        User nagi = run.getBean("nagi", User.class);
+//        User tom = run.getBean("myUser", User.class);
+//        Car car = run.getBean("car", Car.class);
+//        System.out.println(nagi + "\t" + tom + "\t" + car);
     }
 
 }

@@ -4,6 +4,7 @@ import com.nagi.interceptor.MyInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.springframework.web.util.UrlPathHelper;
 
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -100,6 +102,7 @@ public class MyConfiguration implements WebMvcConfigurer {
         registry.addViewController("/resource").setViewName("home");
     }
 
+    // 注册beanName视图，视图名为index
     @Bean
     public View index() {
         return new JstlView("/WEB-INF/static/index.jsp");
@@ -142,5 +145,36 @@ public class MyConfiguration implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.forEach(resolver -> logger.info("default exception resolver: " + resolver.getClass().getSimpleName()));
+    }
+
+    /**
+     * 添加资源处理配置
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        /**
+         * 设置url pattern为/static/**，资源路径为web application root下的public(Servlet path)
+         * 和classpath下的/public，因为没有尾缀匹配，请求时需要加扩展名
+         */
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("/public", "classpath:/public/")
+                .setCacheControl(CacheControl.maxAge(Duration.ofDays(365)));
+    }
+
+    /**
+     * tomcat用name为default的默认servlet处理静态资源
+     * spring默认关闭内置tomcat的default servlet的注册，所有请求由配置了/映射的DispatcherServlet处理，若仍然想将
+     * 静态资源转发给default servlet处理，可通过该回调方法配置
+     * spring会配置DefaultServletHttpRequestHandler，并将其url mapping设置为/**，且优先级设置为最低
+     * DefaultServletHttpRequestHandler可以将请求转发到default servlet
+     */
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        /**
+         * 不指定defaultServletName时，默认根据Tomcat, Jetty, GlassFish, JBoss, Resin, WebLogic, and WebSphere
+         * 等容器提供的默认servlet name设置defaultServletName
+         */
+        // 开启后，会因为容器没有注册default servlet导致dispatch失败
+        //configurer.enable("default");
     }
 }

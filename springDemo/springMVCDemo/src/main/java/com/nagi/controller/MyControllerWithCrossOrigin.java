@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MyCrossOrigin {
+public class MyControllerWithCrossOrigin {
     /**
      * 简单请求，浏览器在request添加origin header，服务端返回的response带有Access-Control-Allow-Origin header
      * 浏览器检查请求是否符合服务端的访问控制，不符合则拒绝此请求

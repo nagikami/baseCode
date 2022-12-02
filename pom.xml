@@ -46,6 +46,7 @@
         <java.validation.version>2.0.1.Final</java.validation.version>
         <validator.version>6.0.13.Final</validator.version>
         <commons-fileupload>1.4</commons-fileupload>
+        <Sa-Token.version>1.33.0</Sa-Token.version>
     </properties>
 
     <dependencyManagement>
@@ -240,6 +241,11 @@
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${Sa-Token.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
