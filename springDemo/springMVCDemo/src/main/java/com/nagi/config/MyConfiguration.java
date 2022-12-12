@@ -153,7 +153,7 @@ public class MyConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /**
-         * 设置url pattern为/static/**，资源路径为web application root下的public(Servlet path)
+         * 设置url pattern为/static/**，资源路径为web application root下的public
          * 和classpath下的/public，因为没有尾缀匹配，请求时需要加扩展名
          */
         registry.addResourceHandler("/static/**")
