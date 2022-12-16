@@ -47,6 +47,7 @@
         <validator.version>6.0.13.Final</validator.version>
         <commons-fileupload>1.4</commons-fileupload>
         <Sa-Token.version>1.33.0</Sa-Token.version>
+        <hadoop.version>3.3.4</hadoop.version>
     </properties>
 
     <dependencyManagement>
@@ -246,6 +247,21 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${Sa-Token.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${hadoop.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
