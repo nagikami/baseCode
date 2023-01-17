@@ -48,6 +48,7 @@
         <commons-fileupload>1.4</commons-fileupload>
         <Sa-Token.version>1.33.0</Sa-Token.version>
         <hadoop.version>3.3.4</hadoop.version>
+        <hive.version>3.1.3</hive.version>
     </properties>
 
     <dependencyManagement>
@@ -262,6 +263,11 @@
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-hdfs</artifactId>
                 <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hive.hcatalog</groupId>
+                <artifactId>hive-hcatalog-core</artifactId>
+                <version>${hive.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
