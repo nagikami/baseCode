@@ -15,11 +15,11 @@ public class DecompressGzip {
             System.out.println("Source file does not exist!");
             return;
         }
-        //deCompressWithIO(src, target);
-        deCompressWithNIO(src, dest);
+        //decompressWithIO(src, target);
+        decompressWithNIO(src, dest);
     }
 
-    public static void deCompressWithIO(Path src, Path dest) {
+    public static void decompressWithIO(Path src, Path dest) {
         try (GZIPInputStream gzipInputStream = new GZIPInputStream(new FileInputStream(src.toFile()));
              FileOutputStream fileOutputStream = new FileOutputStream(dest.toFile())) {
             byte[] buffer = new byte[1024];
@@ -31,7 +31,7 @@ public class DecompressGzip {
         }
     }
 
-    public static void deCompressWithNIO(Path src, Path dest) {
+    public static void decompressWithNIO(Path src, Path dest) {
         try (GZIPInputStream gzipInputStream = new GZIPInputStream(new FileInputStream(src.toFile()))) {
             Files.copy(gzipInputStream, dest);
         } catch (Exception e) {

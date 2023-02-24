@@ -14,20 +14,20 @@ public class DecompressTar {
         Path src = Paths.get("E:\\data\\compress\\tar.tar.gz");
         Path dest = Paths.get("E:\\data\\compress\\tar.tar");
         String unTar = "E:\\data\\compress\\unTar";
-        DecompressGzip.deCompressWithNIO(src, dest);
-        deCompressTar(dest, unTar);
+        DecompressGzip.decompressWithNIO(src, dest);
+        decompressTar(dest, unTar);
     }
 
-    public static void deCompressTar(Path src, String dest) {
+    public static void decompressTar(Path src, String dest) {
         try (TarArchiveInputStream tarArchiveInputStream = new TarArchiveInputStream(new FileInputStream(src.toFile()))) {
             TarArchiveEntry tarArchiveEntry;
             while ((tarArchiveEntry = tarArchiveInputStream.getNextTarEntry()) != null) {
-                Path path = Paths.get(dest + File.separator + tarArchiveEntry.getName());
+                File file = new File(dest + File.separator + tarArchiveEntry.getName());
                 if (tarArchiveEntry.isDirectory()) {
-                    path.toFile().mkdirs();
+                    file.mkdirs();
                 } else {
-                    path.getParent().toFile().mkdirs();
-                    Files.copy(tarArchiveInputStream, path);
+                    file.getParentFile().mkdirs();
+                    Files.copy(tarArchiveInputStream, file.toPath());
                 }
             }
         } catch (Exception e) {
