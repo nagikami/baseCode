@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class KafkaAdminClient {
+public class CustomAdminClient {
     private AdminClient adminClient;
 
     public void init() {
