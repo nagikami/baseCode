@@ -6,40 +6,40 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class AdminClientTest {
-    private AdminClient adminClient;
+public class KafkaAdminClientTest {
+    private KafkaAdminClient kafkaAdminClient;
     private ConsumerClient consumerClient;
 
     @Before
     public void init() {
-        adminClient = new AdminClient();
-        adminClient.init();
+        kafkaAdminClient = new KafkaAdminClient();
+        kafkaAdminClient.init();
         consumerClient = new ConsumerClient();
         consumerClient.init();
     }
 
     @Test
     public void deleteRecordsByTopic() {
-        System.out.println(adminClient.deleteRecordsByTopic("test", consumerClient));
+        System.out.println(kafkaAdminClient.deleteRecordsByTopic("test", consumerClient));
     }
 
     @Test
     public void deleteRecordsByTime() {
-        System.out.println(adminClient.deleteRecordsByTime("test", System.currentTimeMillis() - TimeUnit.SECONDS.toMillis(1), consumerClient));
+        System.out.println(kafkaAdminClient.deleteRecordsByTime("test", System.currentTimeMillis() - TimeUnit.SECONDS.toMillis(1), consumerClient));
     }
 
     @Test
     public void getConsumerGroups() {
-        adminClient.getConsumerGroups();
+        kafkaAdminClient.getConsumerGroups();
     }
 
     @Test
     public void resetGroupOffsetByTopicAndPartition() {
-        adminClient.resetGroupOffsetByTopicAndPartition("test", "test", 1, 0);
+        kafkaAdminClient.resetGroupOffsetByTopicAndPartition("test", "test", 1, 0);
     }
 
     @Test
     public void resetGroupOffsetByTopic() {
-        adminClient.resetGroupOffsetByTopic("test", "test", 0, consumerClient);
+        kafkaAdminClient.resetGroupOffsetByTopic("test", "test", 0, consumerClient);
     }
 }

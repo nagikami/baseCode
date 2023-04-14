@@ -12,13 +12,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class AdminClient {
-    private org.apache.kafka.clients.admin.AdminClient adminClient;
+public class KafkaAdminClient {
+    private AdminClient adminClient;
 
     public void init() {
         Properties properties = new Properties();
         properties.setProperty(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
-        adminClient = org.apache.kafka.clients.admin.AdminClient.create(properties);
+        adminClient = AdminClient.create(properties);
     }
 
     public boolean deleteRecordsByTopic(String topic, ConsumerClient consumerClient) {
